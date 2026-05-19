@@ -75,11 +75,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Ритуал 24 Березівці — Похоронна служба у Києві" },
       { name: "description", content: "Цілодобова похоронна служба у Києві. Організація поховань, кремація, поминальні обіди, догляд за могилами. Працюємо без вихідних." },
       { name: "author", content: "Ритуал 24 Березівці" },
-      { property: "og:title", content: "Ритуал 24 Березівці — Похоронна служба" },
-      { property: "og:description", content: "Цілодобова організація поховань у Києві. Гідно, дбайливо, без зайвої метушні." },
+      { property: "og:title", content: "Ритуал 24 Березівці — Похоронна служба у Києві" },
+      { property: "og:description", content: "Цілодобова похоронна служба у Києві. Організація поховань, кремація, поминальні обіди, догляд за могилами. Працюємо без вихідних." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Ритуал 24 Березівці — Похоронна служба у Києві" },
+      { name: "twitter:description", content: "Цілодобова похоронна служба у Києві. Організація поховань, кремація, поминальні обіди, догляд за могилами. Працюємо без вихідних." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32f5ebd0-124c-4eff-879a-7a93101eecd2/id-preview-8187aeaf--3b02a0bf-8093-4557-979b-99c305618d57.lovable.app-1779203681908.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32f5ebd0-124c-4eff-879a-7a93101eecd2/id-preview-8187aeaf--3b02a0bf-8093-4557-979b-99c305618d57.lovable.app-1779203681908.png" },
     ],
     links: [
       {
