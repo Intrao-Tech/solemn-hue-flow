@@ -11,7 +11,7 @@ export const Route = createFileRoute("/poslugy/$slug")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.service.title} — Ритуал 24 Березівці` },
+          { title: `${loaderData.service.title} — Ритуал 24 Берківці` },
           { name: "description", content: loaderData.service.intro.slice(0, 160) },
           { property: "og:title", content: loaderData.service.title },
           { property: "og:description", content: loaderData.service.intro.slice(0, 160) },

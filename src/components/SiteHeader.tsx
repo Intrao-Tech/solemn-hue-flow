@@ -4,10 +4,8 @@ import { useState } from "react";
 
 const NAV = [
   { to: "/", label: "Головна" },
-  { to: "/pro-nas", label: "Про нас", hash: "#about" },
-  { to: "/poslugy", label: "Послуги", hash: "#catalog" },
-  { to: "/", label: "Наші переваги", hash: "#about" },
-  { to: "/", label: "Зворотний зв'язок", hash: "#contact" },
+  { to: "/pro-nas", label: "Про нас" },
+  { to: "/poslugy", label: "Послуги" },
   { to: "/", label: "Контакти", hash: "#contacts" },
 ];
 
@@ -34,13 +32,13 @@ export function SiteHeader({ floating = false }: { floating?: boolean }) {
   return (
     <header className={floating ? "absolute inset-x-0 top-0 z-30" : "relative z-30 border-b hairline"}>
       <TopBanner />
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-12">
-        <Link to="/" className="font-display text-2xl leading-none">
-          Ритуал<span className="text-primary">24</span>
-          <span className="ml-2 text-xs uppercase tracking-[0.25em] text-muted-foreground">Березівці</span>
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-6 py-5 lg:px-12">
+        <Link to="/" className="flex items-baseline gap-2 font-display text-2xl leading-none shrink-0">
+          <span>Ритуал<span className="text-primary">24</span></span>
+          <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Берківці</span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-9 text-[12px] uppercase tracking-[0.22em]">
+        <nav className="hidden lg:flex items-center gap-8 text-[11px] uppercase tracking-[0.2em]">
           {NAV.map((n, i) => (
             <Link
               key={i}
@@ -53,8 +51,8 @@ export function SiteHeader({ floating = false }: { floating?: boolean }) {
           ))}
         </nav>
 
-        <a href="tel:+380442091175" className="hidden md:inline-flex items-center gap-2 rounded-sm border hairline px-4 py-2.5 text-xs uppercase tracking-[0.22em] hover:border-primary hover:text-primary transition">
-          <Phone size={14} /> Зателефонуйте мені
+        <a href="tel:+380442091175" className="hidden md:inline-flex shrink-0 items-center gap-2 rounded-sm border hairline px-4 py-2.5 text-[11px] uppercase tracking-[0.2em] hover:border-primary hover:text-primary transition">
+          <Phone size={14} /> Зателефонувати
         </a>
 
         <button onClick={() => setOpen(!open)} className="lg:hidden text-foreground/80" aria-label="Меню">
