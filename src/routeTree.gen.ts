@@ -9,38 +9,75 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProNasRouteImport } from './routes/pro-nas'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PoslugyIndexRouteImport } from './routes/poslugy.index'
+import { Route as PoslugySlugRouteImport } from './routes/poslugy.$slug'
 
+const ProNasRoute = ProNasRouteImport.update({
+  id: '/pro-nas',
+  path: '/pro-nas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PoslugyIndexRoute = PoslugyIndexRouteImport.update({
+  id: '/poslugy/',
+  path: '/poslugy/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoslugySlugRoute = PoslugySlugRouteImport.update({
+  id: '/poslugy/$slug',
+  path: '/poslugy/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/pro-nas': typeof ProNasRoute
+  '/poslugy/$slug': typeof PoslugySlugRoute
+  '/poslugy/': typeof PoslugyIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/pro-nas': typeof ProNasRoute
+  '/poslugy/$slug': typeof PoslugySlugRoute
+  '/poslugy': typeof PoslugyIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/pro-nas': typeof ProNasRoute
+  '/poslugy/$slug': typeof PoslugySlugRoute
+  '/poslugy/': typeof PoslugyIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/pro-nas' | '/poslugy/$slug' | '/poslugy/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/pro-nas' | '/poslugy/$slug' | '/poslugy'
+  id: '__root__' | '/' | '/pro-nas' | '/poslugy/$slug' | '/poslugy/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProNasRoute: typeof ProNasRoute
+  PoslugySlugRoute: typeof PoslugySlugRoute
+  PoslugyIndexRoute: typeof PoslugyIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pro-nas': {
+      id: '/pro-nas'
+      path: '/pro-nas'
+      fullPath: '/pro-nas'
+      preLoaderRoute: typeof ProNasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +85,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/poslugy/': {
+      id: '/poslugy/'
+      path: '/poslugy'
+      fullPath: '/poslugy/'
+      preLoaderRoute: typeof PoslugyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/poslugy/$slug': {
+      id: '/poslugy/$slug'
+      path: '/poslugy/$slug'
+      fullPath: '/poslugy/$slug'
+      preLoaderRoute: typeof PoslugySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProNasRoute: ProNasRoute,
+  PoslugySlugRoute: PoslugySlugRoute,
+  PoslugyIndexRoute: PoslugyIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
