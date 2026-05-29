@@ -37,7 +37,7 @@ export function SiteHeader({ floating = false }: { floating?: boolean }) {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-12">
         <Link to="/" className="font-display text-2xl leading-none">
           Ритуал<span className="text-primary">24</span>
-          <span className="ml-2 text-xs uppercase tracking-[0.25em] text-muted-foreground">Березівці</span>
+          <span className="ml-2 text-xs uppercase tracking-[0.25em] text-muted-foreground">Берківці</span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-9 text-[12px] uppercase tracking-[0.22em]">

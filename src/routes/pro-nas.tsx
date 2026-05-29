@@ -7,9 +7,9 @@ import heroAngel from "@/assets/hero-angel.jpg";
 export const Route = createFileRoute("/pro-nas")({
   head: () => ({
     meta: [
-      { title: "Про нас — Ритуал 24 Березівці" },
+      { title: "Про нас — Ритуал 24 Берківці" },
       { name: "description", content: "Десять років поряд із родинами у найважчий час. Понад 2000 родин, повний цикл ритуальних послуг." },
-      { property: "og:title", content: "Про нас — Ритуал 24 Березівці" },
+      { property: "og:title", content: "Про нас — Ритуал 24 Берківці" },
     ],
   }),
   component: ProNas,

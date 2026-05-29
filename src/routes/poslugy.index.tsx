@@ -8,9 +8,9 @@ import { ContactBlock } from "@/components/ContactBlock";
 export const Route = createFileRoute("/poslugy/")({
   head: () => ({
     meta: [
-      { title: "Послуги — Ритуал 24 Березівці" },
+      { title: "Послуги — Ритуал 24 Берківці" },
       { name: "description", content: "Повний перелік ритуальних послуг: організація похоронів, кремація, морг, транспорт, догляд за могилами." },
-      { property: "og:title", content: "Послуги — Ритуал 24 Березівці" },
+      { property: "og:title", content: "Послуги — Ритуал 24 Берківці" },
     ],
   }),
   component: PoslugyIndex,
