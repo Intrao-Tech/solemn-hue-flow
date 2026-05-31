@@ -112,7 +112,7 @@ function Index() {
           <div className="text-xs uppercase tracking-[0.4em] text-primary">— Про нас</div>
           <div className="mt-8 grid gap-12 md:grid-cols-12">
             <p className="md:col-span-6 font-display text-2xl md:text-3xl leading-snug">
-              Десять років в Березівцях. Ми не починали цей бізнес з амбіції стати найбільшими — починали з того, щоб бути людьми, які прийдуть у найважче, що буває кому-небудь.
+              Десять років в Берківцях. Ми не починали цей бізнес з амбіції стати найбільшими — починали з того, щоб бути людьми, які прийдуть у найважчу мить.
             </p>
             <div className="md:col-span-6 grid grid-cols-2 gap-x-6 gap-y-10">
               {[
