@@ -35,7 +35,7 @@ function ProNas() {
       <section className="bg-[color:var(--paper)] text-[color:var(--paper-foreground)]">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12 grid gap-12 md:grid-cols-12">
           <p className="md:col-span-7 font-display text-2xl md:text-3xl leading-snug">
-            Ми не починали з амбіції стати найбільшими — починали з того, щоб бути людьми, які прийдуть у найважче, що буває кому-небудь. За цей час нас супроводжували понад дві тисячі родин.
+            Десять років в Берківцях. Ми не починали цей бізнес з амбіції стати найбільшими — починали з того, щоб бути людьми, які прийдуть у найважчу мить.
           </p>
           <div className="md:col-span-5 grid grid-cols-2 gap-x-6 gap-y-10">
             {[
