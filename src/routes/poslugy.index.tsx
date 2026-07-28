@@ -22,7 +22,7 @@ function PoslugyIndex() {
       <SiteHeader />
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-12">
         <div className="text-xs uppercase tracking-[0.4em] text-primary">— Наш каталог</div>
-        <h1 className="mt-4 font-display text-5xl md:text-7xl leading-[1.05]">Дев'ять напрямків роботи</h1>
+        <h1 className="mt-4 font-display text-5xl md:text-7xl leading-[1.05]">Десять напрямків роботи</h1>
         <p className="mt-6 max-w-xl text-muted-foreground">
           Усе, що може знадобитися родині, — під одним дахом. Один номер, один куратор, одна відповідальність.
         </p>
