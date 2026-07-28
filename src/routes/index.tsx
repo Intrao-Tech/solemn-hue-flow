@@ -60,10 +60,47 @@ function Index() {
         </div>
       </section>
 
+      {/* REPATRIATION */}
+      <section className="relative overflow-hidden border-b hairline bg-[color:var(--paper)] text-[color:var(--paper-foreground)]">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12">
+          <div className="grid gap-12 md:grid-cols-12 md:items-end">
+            <div className="md:col-span-7">
+              <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-primary">
+                <Plane size={14} /> репатріація · вантаж 200
+              </div>
+              <h2 className="mt-6 font-display text-4xl md:text-6xl leading-[1.05]">
+                Повертаємо рідних додому — <em className="text-primary not-italic">швидко</em> й з гідністю
+              </h2>
+              <p className="mt-6 max-w-xl text-[color:var(--paper-muted)]">
+                Репатріація тіл в Україну з будь-якої країни світу. Беремо на себе документи, консульство, цинковий контейнер, митницю й перевезення — від дзвінка до передачі родині. Цілодобово, без зайвих турбот для близьких.
+              </p>
+            </div>
+            <div className="md:col-span-5 grid grid-cols-3 gap-4">
+              {[
+                ["24/7", "координація"],
+                ["5–10", "днів у середньому"],
+                ["40+", "країн світу"],
+              ].map(([v, l]) => (
+                <div key={l} className="border-l pl-4 hairline" style={{ borderColor: "var(--paper-border)" }}>
+                  <div className="font-display text-3xl md:text-4xl">{v}</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-[0.25em] text-[color:var(--paper-muted)]">{l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Link to="/poslugy/$slug" params={{ slug: "vantazh-200" }} className="group inline-flex items-center gap-3 rounded-sm bg-primary px-8 py-4 text-xs uppercase tracking-[0.22em] text-primary-foreground transition hover:gap-5">
+              Дізнатись про репатріацію <ArrowRight size={16} />
+            </Link>
+            <a href="tel:+380672723377" className="text-xs uppercase tracking-[0.22em] text-[color:var(--paper-muted)] hover:text-primary">
+              або зателефонуйте: +38 (067) 272 33 77
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* CATALOG */}
       <section id="catalog" className="mx-auto max-w-7xl px-6 py-28 lg:px-12">
-        {/* keep */}
-      </section>
         <div className="grid gap-12 md:grid-cols-12 mb-14">
           <div className="md:col-span-5">
             <div className="text-xs uppercase tracking-[0.4em] text-primary">— Наш каталог</div>
