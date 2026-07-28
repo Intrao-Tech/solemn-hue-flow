@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Phone, MapPin, Mail, Clock, UserCheck, KeyRound, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Phone, MapPin, Mail, Clock, UserCheck, KeyRound, ArrowRight, ArrowUpRight, Plane } from "lucide-react";
 import heroAngel from "@/assets/hero-angel.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -62,6 +62,8 @@ function Index() {
 
       {/* CATALOG */}
       <section id="catalog" className="mx-auto max-w-7xl px-6 py-28 lg:px-12">
+        {/* keep */}
+      </section>
         <div className="grid gap-12 md:grid-cols-12 mb-14">
           <div className="md:col-span-5">
             <div className="text-xs uppercase tracking-[0.4em] text-primary">— Наш каталог</div>
