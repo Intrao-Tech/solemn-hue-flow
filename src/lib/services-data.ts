@@ -408,6 +408,7 @@ export const ALL_SERVICES_LINKS = [
   { slug: "kremaciya-tvaryn", title: "Кремація тварин" },
   { slug: "morh", title: "Послуги моргу" },
   { slug: "vantazh-200", title: "Ритуальний транспорт · вантаж 200" },
+  { slug: "repatriaciya", title: "Репатріація тіл в Україну" },
   { slug: "truny", title: "Труни та саркофаги" },
   { slug: "khresty-vinky", title: "Хрести, вінки, квіти, лампади" },
   { slug: "fotoportret", title: "Фотопортрет на могилу" },
