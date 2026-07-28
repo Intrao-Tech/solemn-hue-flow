@@ -8,6 +8,8 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
+import { Toaster } from "@/components/ui/sonner";
+
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -124,6 +126,8 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      {/* Feedback surface for the contact form's success/error toasts. */}
+      <Toaster position="top-center" />
     </QueryClientProvider>
   );
 }

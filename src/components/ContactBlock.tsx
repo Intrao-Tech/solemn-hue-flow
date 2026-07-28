@@ -1,22 +1,53 @@
+import { useState, type SyntheticEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 import { ALL_SERVICES_LINKS } from "@/lib/services-data";
 import mourner from "@/assets/mourner.jpg";
 
-function Field({ placeholder, type = "text", as = "input" }: { placeholder: string; type?: string; as?: "input" | "textarea" | "select" }) {
-  const cls = "w-full rounded-sm border hairline bg-background/40 px-6 py-4 text-sm text-foreground placeholder:text-muted-foreground/80 backdrop-blur-sm transition focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
-  if (as === "textarea") return <textarea placeholder={placeholder} rows={4} className={cls} />;
-  if (as === "select")
-    return (
-      <select className={`${cls} appearance-none`}>
-        <option>{placeholder}</option>
-        {ALL_SERVICES_LINKS.map((s) => <option key={s.slug}>{s.title}</option>)}
-      </select>
-    );
-  return <input type={type} placeholder={placeholder} className={cls} />;
-}
+const FIELD_CLASS =
+  "w-full rounded-sm border hairline bg-background/40 px-6 py-4 text-sm text-foreground placeholder:text-muted-foreground/80 backdrop-blur-sm transition focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
+
+type Lead = { name: string; phone: string; service: string; comment: string };
+
+const emptyLead = (service = ""): Lead => ({ name: "", phone: "", service, comment: "" });
 
 export function ContactBlock({ activeSlug, leadCopy }: { activeSlug?: string; leadCopy?: string }) {
+  // On a service page the relevant service is preselected, so the lead arrives
+  // already labelled without the visitor picking it again.
+  const defaultService = ALL_SERVICES_LINKS.find((s) => s.slug === activeSlug)?.title ?? "";
+  const [lead, setLead] = useState<Lead>(() => emptyLead(defaultService));
+  // Honeypot: invisible to humans, bots fill it; the server drops those silently.
+  const [website, setWebsite] = useState("");
+  const [sending, setSending] = useState(false);
+
+  const set = <K extends keyof Lead>(key: K, value: Lead[K]) =>
+    setLead((prev) => ({ ...prev, [key]: value }));
+
+  const onSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (sending) return;
+    setSending(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          ...lead,
+          website,
+          page: typeof window === "undefined" ? "" : window.location.pathname,
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      toast.success("Дякуємо! Ми зателефонуємо вам найближчим часом.");
+      setLead(emptyLead(defaultService));
+    } catch {
+      toast.error("Не вдалося надіслати заявку. Зателефонуйте нам: +38 (044) 209 11 75");
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <section id="contact" className="relative isolate overflow-hidden">
       <div className="absolute inset-0 -z-10">
@@ -32,13 +63,57 @@ export function ContactBlock({ activeSlug, leadCopy }: { activeSlug?: string; le
         </h2>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-12">
-          <form className="lg:col-span-7 space-y-3" onSubmit={(e) => e.preventDefault()}>
-            <Field placeholder="Ваше ім'я" />
-            <Field placeholder="Ваш телефон" type="tel" />
-            <Field placeholder="Послуга" as="select" />
-            <Field placeholder="Коментар" as="textarea" />
-            <button type="submit" className="group mt-3 flex w-full items-center justify-between rounded-sm bg-primary px-6 py-5 text-xs uppercase tracking-[0.22em] text-primary-foreground hover:opacity-90 transition">
-              <span>Зателефонуйте мені</span>
+          <form onSubmit={onSubmit} className="lg:col-span-7 space-y-3">
+            <input
+              type="text"
+              name="website"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+            />
+            <input
+              required
+              placeholder="Ваше ім'я"
+              value={lead.name}
+              onChange={(e) => set("name", e.target.value)}
+              className={FIELD_CLASS}
+            />
+            <input
+              required
+              type="tel"
+              placeholder="Ваш телефон"
+              value={lead.phone}
+              onChange={(e) => set("phone", e.target.value)}
+              className={FIELD_CLASS}
+            />
+            <select
+              value={lead.service}
+              onChange={(e) => set("service", e.target.value)}
+              className={`${FIELD_CLASS} appearance-none`}
+            >
+              <option value="">Послуга</option>
+              {ALL_SERVICES_LINKS.map((s) => (
+                <option key={s.slug} value={s.title}>
+                  {s.title}
+                </option>
+              ))}
+            </select>
+            <textarea
+              rows={4}
+              placeholder="Коментар"
+              value={lead.comment}
+              onChange={(e) => set("comment", e.target.value)}
+              className={FIELD_CLASS}
+            />
+            <button
+              type="submit"
+              disabled={sending}
+              className="group mt-3 flex w-full items-center justify-between rounded-sm bg-primary px-6 py-5 text-xs uppercase tracking-[0.22em] text-primary-foreground hover:opacity-90 transition disabled:opacity-60 disabled:pointer-events-none"
+            >
+              <span>{sending ? "Надсилаємо…" : "Зателефонуйте мені"}</span>
               <ArrowRight size={18} className="transition group-hover:translate-x-1" />
             </button>
           </form>

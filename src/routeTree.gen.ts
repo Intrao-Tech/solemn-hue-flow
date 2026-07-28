@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProNasRouteImport } from './routes/pro-nas'
+import { Route as ApiContactRouteImport } from './routes/api.contact'
 import { Route as PoslugyIndexRouteImport } from './routes/poslugy.index'
 import { Route as PoslugySlugRouteImport } from './routes/poslugy.$slug'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const ProNasRoute = ProNasRouteImport.update({
   id: '/pro-nas',
   path: '/pro-nas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContactRoute = ApiContactRouteImport.update({
+  id: '/api/contact',
+  path: '/api/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PoslugyIndexRoute = PoslugyIndexRouteImport.update({
@@ -38,12 +44,14 @@ const PoslugySlugRoute = PoslugySlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/pro-nas': typeof ProNasRoute
+  '/api/contact': typeof ApiContactRoute
   '/poslugy/$slug': typeof PoslugySlugRoute
   '/poslugy/': typeof PoslugyIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/pro-nas': typeof ProNasRoute
+  '/api/contact': typeof ApiContactRoute
   '/poslugy/$slug': typeof PoslugySlugRoute
   '/poslugy': typeof PoslugyIndexRoute
 }
@@ -51,20 +59,28 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/pro-nas': typeof ProNasRoute
+  '/api/contact': typeof ApiContactRoute
   '/poslugy/$slug': typeof PoslugySlugRoute
   '/poslugy/': typeof PoslugyIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pro-nas' | '/poslugy/$slug' | '/poslugy/'
+  fullPaths: '/' | '/pro-nas' | '/api/contact' | '/poslugy/$slug' | '/poslugy/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pro-nas' | '/poslugy/$slug' | '/poslugy'
-  id: '__root__' | '/' | '/pro-nas' | '/poslugy/$slug' | '/poslugy/'
+  to: '/' | '/pro-nas' | '/api/contact' | '/poslugy/$slug' | '/poslugy'
+  id:
+    | '__root__'
+    | '/'
+    | '/pro-nas'
+    | '/api/contact'
+    | '/poslugy/$slug'
+    | '/poslugy/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ProNasRoute: typeof ProNasRoute
+  ApiContactRoute: typeof ApiContactRoute
   PoslugySlugRoute: typeof PoslugySlugRoute
   PoslugyIndexRoute: typeof PoslugyIndexRoute
 }
@@ -83,6 +99,13 @@ declare module '@tanstack/react-router' {
       path: '/pro-nas'
       fullPath: '/pro-nas'
       preLoaderRoute: typeof ProNasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/contact': {
+      id: '/api/contact'
+      path: '/api/contact'
+      fullPath: '/api/contact'
+      preLoaderRoute: typeof ApiContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/poslugy/': {
@@ -105,9 +128,20 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ProNasRoute: ProNasRoute,
+  ApiContactRoute: ApiContactRoute,
   PoslugySlugRoute: PoslugySlugRoute,
   PoslugyIndexRoute: PoslugyIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

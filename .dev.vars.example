@@ -1,0 +1,17 @@
+# Secrets for the contact form → Telegram relay (src/routes/api.contact.ts).
+#
+# Local dev (`npm run dev` runs in Node, not workerd): copy this file to `.env`
+# — vite.config.ts loads it into process.env for the dev server only.
+# Local `wrangler dev` reads `.dev.vars` instead, so copying to that name works
+# too. Both are gitignored.
+#
+# Production (Cloudflare Worker) uses Worker secrets:
+#   npx wrangler secret put TELEGRAM_BOT_TOKEN
+#   npx wrangler secret put TELEGRAM_CHAT_ID
+
+# Bot token from @BotFather (/newbot)
+TELEGRAM_BOT_TOKEN=123456789:AA...
+
+# Chat that receives the leads. Send the bot a /start from that chat first, then:
+# https://api.telegram.org/bot<TOKEN>/getUpdates → result[].message.chat.id
+TELEGRAM_CHAT_ID=123456789

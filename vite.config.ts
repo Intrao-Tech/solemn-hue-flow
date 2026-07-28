@@ -5,6 +5,13 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { loadEnv } from "vite";
+
+// `npm run dev` runs SSR in this very Node process, so unprefixed secrets from
+// `.env` (TELEGRAM_*) reach server routes through process.env. Nothing is
+// inlined into a bundle, so these never reach the client — and in production
+// the Worker gets them from Cloudflare secrets instead (see src/lib/server-env.ts).
+Object.assign(process.env, loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), ""));
 
 // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
 // @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
