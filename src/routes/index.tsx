@@ -89,7 +89,7 @@ function Index() {
             </div>
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Link to="/poslugy/$slug" params={{ slug: "vantazh-200" }} className="group inline-flex items-center gap-3 rounded-sm bg-primary px-8 py-4 text-xs uppercase tracking-[0.22em] text-primary-foreground transition hover:gap-5">
+            <Link to="/poslugy/$slug" params={{ slug: "repatriaciya" }} className="group inline-flex items-center gap-3 rounded-sm bg-primary px-8 py-4 text-xs uppercase tracking-[0.22em] text-primary-foreground transition hover:gap-5">
               Дізнатись про репатріацію <ArrowRight size={16} />
             </Link>
             <a href="tel:+380672723377" className="text-xs uppercase tracking-[0.22em] text-[color:var(--paper-muted)] hover:text-primary">
@@ -105,7 +105,7 @@ function Index() {
           <div className="md:col-span-5">
             <div className="text-xs uppercase tracking-[0.4em] text-primary">— Наш каталог</div>
             <h2 className="mt-6 font-display text-5xl md:text-6xl leading-[1.05]">
-              Дев'ять<br />напрямків роботи
+              Десять<br />напрямків роботи
             </h2>
           </div>
           <p className="md:col-span-7 md:pt-12 text-lg text-muted-foreground max-w-md">
