@@ -23,7 +23,6 @@ export function SiteFooter() {
         </nav>
         <div className="md:col-span-3 text-sm space-y-2 text-muted-foreground">
           <a href="tel:+380672723377" className="block hover:text-primary">+38 (067) 272 33 77</a>
-          <a href="tel:+380672723377" className="block hover:text-primary">+38 (067) 272 33 77</a>
           <div>E-MAIL: ritualberkovtsy@gmail.com</div>
           <div className="uppercase tracking-[0.2em] text-xs mt-3">Працюємо цілодобово</div>
           <div className="mt-3 flex gap-2">
