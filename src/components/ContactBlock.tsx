@@ -42,7 +42,7 @@ export function ContactBlock({ activeSlug, leadCopy }: { activeSlug?: string; le
       toast.success("Дякуємо! Ми зателефонуємо вам найближчим часом.");
       setLead(emptyLead(defaultService));
     } catch {
-      toast.error("Не вдалося надіслати заявку. Зателефонуйте нам: +38 (044) 209 11 75");
+      toast.error("Не вдалося надіслати заявку. Зателефонуйте нам: +38 (067) 272 33 77");
     } finally {
       setSending(false);
     }

@@ -19,7 +19,7 @@ export function TopBanner() {
           Цілодобово на зв'язку
         </div>
         <div className="flex items-center gap-4">
-          <a href="tel:+380442091175" className="hover:text-primary transition">+38 (044) 209 11 75</a>
+          <a href="tel:+380672723377" className="hover:text-primary transition">+38 (067) 272 33 77</a>
           <a href="tel:+380672723377" className="hidden sm:inline hover:text-primary transition">+38 (067) 272 33 77</a>
         </div>
       </div>
@@ -51,7 +51,7 @@ export function SiteHeader({ floating = false }: { floating?: boolean }) {
           ))}
         </nav>
 
-        <a href="tel:+380442091175" className="hidden md:inline-flex shrink-0 items-center gap-2 rounded-sm border hairline px-4 py-2.5 text-[11px] uppercase tracking-[0.2em] hover:border-primary hover:text-primary transition">
+        <a href="tel:+380672723377" className="hidden md:inline-flex shrink-0 items-center gap-2 rounded-sm border hairline px-4 py-2.5 text-[11px] uppercase tracking-[0.2em] hover:border-primary hover:text-primary transition">
           <Phone size={14} /> Зателефонувати
         </a>
 
