@@ -191,7 +191,6 @@ function Index() {
             <div className="text-xs uppercase tracking-[0.3em] text-primary">Контакти</div>
             <div className="mt-4 space-y-3 text-sm">
               <div className="flex gap-3"><MapPin size={16} className="text-primary mt-0.5" /> м. Київ, вул. Стеценка, 18</div>
-              <a href="tel:+380442091175" className="flex gap-3 hover:text-primary"><Phone size={16} className="text-primary mt-0.5" /> +38 (044) 209 11 75</a>
               <a href="tel:+380672723377" className="flex gap-3 hover:text-primary"><Phone size={16} className="text-primary mt-0.5" /> +38 (067) 272 33 77</a>
               <a href="mailto:ritualberkovtsy@gmail.com" className="flex gap-3 hover:text-primary"><Mail size={16} className="text-primary mt-0.5" /> ritualberkovtsy@gmail.com</a>
             </div>

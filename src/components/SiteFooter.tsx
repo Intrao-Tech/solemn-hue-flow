@@ -22,18 +22,17 @@ export function SiteFooter() {
           <Link to="/" hash="contacts" className="block text-muted-foreground hover:text-primary transition">Контакти</Link>
         </nav>
         <div className="md:col-span-3 text-sm space-y-2 text-muted-foreground">
-          <a href="tel:+380442091175" className="block hover:text-primary">+38 (044) 209 11 75</a>
           <a href="tel:+380672723377" className="block hover:text-primary">+38 (067) 272 33 77</a>
           <div>E-MAIL: ritualberkovtsy@gmail.com</div>
           <div className="uppercase tracking-[0.2em] text-xs mt-3">Працюємо цілодобово</div>
           <div className="mt-3 flex gap-2">
             <a href="#" aria-label="Telegram" className="rounded-full border hairline p-2 hover:border-primary hover:text-primary transition"><Send size={14} /></a>
             <a href="#" aria-label="Instagram" className="rounded-full border hairline p-2 hover:border-primary hover:text-primary transition"><Instagram size={14} /></a>
-            <a href="tel:+380442091175" aria-label="Phone" className="rounded-full border hairline p-2 hover:border-primary hover:text-primary transition"><Phone size={14} /></a>
+            <a href="tel:+380672723377" aria-label="Phone" className="rounded-full border hairline p-2 hover:border-primary hover:text-primary transition"><Phone size={14} /></a>
           </div>
         </div>
         <div className="md:col-span-2 flex md:justify-end items-start">
-          <a href="tel:+380442091175" className="inline-flex w-full md:w-auto items-center justify-center gap-2 rounded-sm bg-primary px-5 py-3 text-xs uppercase tracking-[0.22em] text-primary-foreground hover:opacity-90 transition">
+          <a href="tel:+380672723377" className="inline-flex w-full md:w-auto items-center justify-center gap-2 rounded-sm bg-primary px-5 py-3 text-xs uppercase tracking-[0.22em] text-primary-foreground hover:opacity-90 transition">
             Зателефонуйте мені
           </a>
         </div>
