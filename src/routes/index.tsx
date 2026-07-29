@@ -192,7 +192,6 @@ function Index() {
             <div className="mt-4 space-y-3 text-sm">
               <div className="flex gap-3"><MapPin size={16} className="text-primary mt-0.5" /> м. Київ, вул. Стеценка, 18</div>
               <a href="tel:+380672723377" className="flex gap-3 hover:text-primary"><Phone size={16} className="text-primary mt-0.5" /> +38 (067) 272 33 77</a>
-              <a href="tel:+380672723377" className="flex gap-3 hover:text-primary"><Phone size={16} className="text-primary mt-0.5" /> +38 (067) 272 33 77</a>
               <a href="mailto:ritualberkovtsy@gmail.com" className="flex gap-3 hover:text-primary"><Mail size={16} className="text-primary mt-0.5" /> ritualberkovtsy@gmail.com</a>
             </div>
             <div className="mt-6 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
