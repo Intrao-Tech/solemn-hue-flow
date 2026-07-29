@@ -20,7 +20,6 @@ export function TopBanner() {
         </div>
         <div className="flex items-center gap-4">
           <a href="tel:+380672723377" className="hover:text-primary transition">+38 (067) 272 33 77</a>
-          <a href="tel:+380672723377" className="hidden sm:inline hover:text-primary transition">+38 (067) 272 33 77</a>
         </div>
       </div>
     </div>
