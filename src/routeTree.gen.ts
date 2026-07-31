@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as ProNasRouteImport } from './routes/pro-nas'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiContactRouteImport } from './routes/api.contact'
 import { Route as PoslugyIndexRouteImport } from './routes/poslugy.index'
 import { Route as PoslugySlugRouteImport } from './routes/poslugy.$slug'
@@ -20,9 +23,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProNasRoute = ProNasRouteImport.update({
   id: '/pro-nas',
   path: '/pro-nas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiContactRoute = ApiContactRouteImport.update({
@@ -43,14 +61,20 @@ const PoslugySlugRoute = PoslugySlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/pro-nas': typeof ProNasRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/contact': typeof ApiContactRoute
   '/poslugy/$slug': typeof PoslugySlugRoute
   '/poslugy/': typeof PoslugyIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/pro-nas': typeof ProNasRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/contact': typeof ApiContactRoute
   '/poslugy/$slug': typeof PoslugySlugRoute
   '/poslugy': typeof PoslugyIndexRoute
@@ -58,20 +82,42 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/pro-nas': typeof ProNasRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/contact': typeof ApiContactRoute
   '/poslugy/$slug': typeof PoslugySlugRoute
   '/poslugy/': typeof PoslugyIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pro-nas' | '/api/contact' | '/poslugy/$slug' | '/poslugy/'
+  fullPaths:
+    | '/'
+    | '/llms.txt'
+    | '/pro-nas'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/api/contact'
+    | '/poslugy/$slug'
+    | '/poslugy/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pro-nas' | '/api/contact' | '/poslugy/$slug' | '/poslugy'
+  to:
+    | '/'
+    | '/llms.txt'
+    | '/pro-nas'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/api/contact'
+    | '/poslugy/$slug'
+    | '/poslugy'
   id:
     | '__root__'
     | '/'
+    | '/llms.txt'
     | '/pro-nas'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/api/contact'
     | '/poslugy/$slug'
     | '/poslugy/'
@@ -79,7 +125,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
   ProNasRoute: typeof ProNasRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiContactRoute: typeof ApiContactRoute
   PoslugySlugRoute: typeof PoslugySlugRoute
   PoslugyIndexRoute: typeof PoslugyIndexRoute
@@ -94,11 +143,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pro-nas': {
       id: '/pro-nas'
       path: '/pro-nas'
       fullPath: '/pro-nas'
       preLoaderRoute: typeof ProNasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/contact': {
@@ -127,7 +197,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LlmsDottxtRoute: LlmsDottxtRoute,
   ProNasRoute: ProNasRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiContactRoute: ApiContactRoute,
   PoslugySlugRoute: PoslugySlugRoute,
   PoslugyIndexRoute: PoslugyIndexRoute,

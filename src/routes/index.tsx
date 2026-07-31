@@ -1,18 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Phone, MapPin, Mail, Clock, UserCheck, KeyRound, ArrowRight, ArrowUpRight, Plane } from "lucide-react";
-import heroAngel from "@/assets/hero-angel.jpg";
+import heroAngel from "@/assets/hero-angel.webp";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ContactBlock } from "@/components/ContactBlock";
 import { SERVICES } from "@/lib/services-data";
+import { JsonLd } from "@/components/JsonLd";
+import { canonicalHead } from "@/lib/site";
+import { organizationSchema, websiteSchema } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/")({
+  // Title and description come from the root route; the home page only adds its
+  // canonical, hreflang and og:url.
+  head: () => canonicalHead("/"),
   component: Index,
 });
 
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* The organisation node is the anchor of the graph: every Service and
+          CollectionPage on the site references it by @id. */}
+      <JsonLd data={organizationSchema()} />
+      <JsonLd data={websiteSchema()} />
       <SiteHeader floating />
 
       {/* HERO */}
@@ -133,7 +143,7 @@ function Index() {
                 params={{ slug: s.slug }}
                 className={`group relative overflow-hidden rounded-sm border hairline bg-card ${sizes[i] ?? ""}`}
               >
-                <img src={s.heroImage} alt={s.title} className="absolute inset-0 h-full w-full object-cover opacity-60 transition duration-700 group-hover:scale-110 group-hover:opacity-90" />
+                <img src={s.heroImage} alt={s.title} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-60 transition duration-700 group-hover:scale-110 group-hover:opacity-90" />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
                 <div className="relative flex h-full flex-col justify-end p-5">
                   <div className="font-display text-xl md:text-2xl leading-tight pr-8">{s.shortTitle}</div>

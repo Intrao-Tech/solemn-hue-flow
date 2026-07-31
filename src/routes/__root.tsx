@@ -8,29 +8,70 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { Toaster } from "@/components/ui/sonner";
+import { ALL_SERVICES_LINKS } from "@/lib/services-data";
+import { SITE_DESCRIPTION, SITE_LANG, SITE_LOCALE, SITE_NAME, SITE_TAGLINE, absoluteUrl } from "@/lib/site";
 
 import appCss from "../styles.css?url";
 
+const OG_IMAGE = absoluteUrl("/og-image.jpg");
+
+/**
+ * Error and 404 screens carry the site header and footer so a visitor who lands
+ * on one keeps the navigation, the phone number and the internal links instead
+ * of hitting a dead end — the SEO audit flags a bare 404 as a crawl trap.
+ */
+function ErrorShell({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <SiteHeader />
+      <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-24 text-center lg:px-12">{children}</main>
+      <SiteFooter />
+    </div>
+  );
+}
+
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
+    <ErrorShell>
+      <div className="font-display text-7xl text-primary md:text-8xl">404</div>
+      <h1 className="mt-6 font-display text-3xl md:text-4xl">Такої сторінки немає</h1>
+      <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+        Можливо, сторінку перенесено або в адресі є помилка. Оберіть потрібну послугу нижче або
+        зателефонуйте — ми на зв&apos;язку цілодобово.
+      </p>
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <Link
+          to="/"
+          className="inline-flex items-center justify-center rounded-sm bg-primary px-8 py-4 text-xs uppercase tracking-[0.22em] text-primary-foreground transition hover:opacity-90"
+        >
+          На головну
+        </Link>
+        <a
+          href="tel:+380442091175"
+          className="inline-flex items-center justify-center rounded-sm border hairline px-8 py-4 text-xs uppercase tracking-[0.22em] transition hover:border-primary hover:text-primary"
+        >
+          +38 (044) 209 11 75
+        </a>
       </div>
-    </div>
+
+      <div className="mt-16 text-xs uppercase tracking-[0.3em] text-primary">Наші послуги</div>
+      <ul className="mx-auto mt-6 grid max-w-2xl gap-x-8 gap-y-2 text-left sm:grid-cols-2">
+        {ALL_SERVICES_LINKS.map((service) => (
+          <li key={service.slug}>
+            <Link
+              to="/poslugy/$slug"
+              params={{ slug: service.slug }}
+              className="text-sm text-muted-foreground transition hover:text-primary"
+            >
+              {service.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </ErrorShell>
   );
 }
 
@@ -39,33 +80,30 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
-          </a>
-        </div>
+    <ErrorShell>
+      <h1 className="font-display text-3xl md:text-4xl">Сторінка не завантажилась</h1>
+      <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+        Щось пішло не так на нашому боці. Спробуйте оновити сторінку або зателефонуйте — приймаємо
+        дзвінки цілодобово.
+      </p>
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <button
+          onClick={() => {
+            router.invalidate();
+            reset();
+          }}
+          className="inline-flex items-center justify-center rounded-sm bg-primary px-8 py-4 text-xs uppercase tracking-[0.22em] text-primary-foreground transition hover:opacity-90"
+        >
+          Спробувати ще раз
+        </button>
+        <a
+          href="tel:+380442091175"
+          className="inline-flex items-center justify-center rounded-sm border hairline px-8 py-4 text-xs uppercase tracking-[0.22em] transition hover:border-primary hover:text-primary"
+        >
+          +38 (044) 209 11 75
+        </a>
       </div>
-    </div>
+    </ErrorShell>
   );
 }
 
@@ -74,25 +112,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ритуал 24 Берківці — Похоронна служба у Києві" },
-      { name: "description", content: "Цілодобова похоронна служба у Києві. Організація поховань, кремація, поминальні обіди, догляд за могилами. Працюємо без вихідних." },
-      { name: "author", content: "Ритуал 24 Берківці" },
-      { property: "og:title", content: "Ритуал 24 Берківці — Похоронна служба у Києві" },
-      { property: "og:description", content: "Цілодобова похоронна служба у Києві. Організація поховань, кремація, поминальні обіди, догляд за могилами. Працюємо без вихідних." },
+      { title: `${SITE_NAME} — ${SITE_TAGLINE}` },
+      { name: "description", content: SITE_DESCRIPTION },
+      { name: "author", content: SITE_NAME },
+      { property: "og:site_name", content: SITE_NAME },
+      { property: "og:locale", content: SITE_LOCALE },
+      { property: "og:title", content: `${SITE_NAME} — ${SITE_TAGLINE}` },
+      { property: "og:description", content: SITE_DESCRIPTION },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Ритуал 24 Берківці — Похоронна служба у Києві" },
-      { name: "twitter:description", content: "Цілодобова похоронна служба у Києві. Організація поховань, кремація, поминальні обіди, догляд за могилами. Працюємо без вихідних." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32f5ebd0-124c-4eff-879a-7a93101eecd2/id-preview-8187aeaf--3b02a0bf-8093-4557-979b-99c305618d57.lovable.app-1779203681908.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/32f5ebd0-124c-4eff-879a-7a93101eecd2/id-preview-8187aeaf--3b02a0bf-8093-4557-979b-99c305618d57.lovable.app-1779203681908.png" },
+      // Own-domain preview image. The previous value pointed at a Lovable
+      // preview bucket, so every share was branded as somebody else's site.
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: `${SITE_NAME} — ${SITE_TAGLINE}` },
+      { name: "twitter:description", content: SITE_DESCRIPTION },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
+        // Only the weights the site actually renders: Cormorant 400 upright +
+        // italic (display headings), Inter 400/500/600/700 (body and UI). The
+        // previous URL asked for 13 variants, 7 of which were never used.
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@400;500;600;700&display=swap",
       },
       {
         rel: "stylesheet",
@@ -108,7 +154,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang={SITE_LANG}>
       <head>
         <HeadContent />
       </head>

@@ -3,11 +3,24 @@ import { ArrowRight, Plus, Minus, ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { ContactBlock } from "./ContactBlock";
+import { Breadcrumbs } from "./Breadcrumbs";
+import { JsonLd } from "./JsonLd";
 import type { ServiceConfig } from "@/lib/services-data";
+import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/structured-data";
 
 export function ServicePage({ service }: { service: ServiceConfig }) {
+  const path = `/poslugy/${service.slug}`;
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <JsonLd data={serviceSchema(service)} />
+      <JsonLd data={faqSchema(service.faq, path)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Головна", path: "/" },
+          { name: "Послуги", path: "/poslugy" },
+          { name: service.shortTitle, path },
+        ])}
+      />
       <SiteHeader floating />
 
       {/* HERO */}
@@ -19,6 +32,15 @@ export function ServicePage({ service }: { service: ServiceConfig }) {
         </div>
 
         <div className="mx-auto max-w-7xl px-6 pb-24 pt-16 lg:px-12 lg:pb-32 lg:pt-24 reveal">
+          <div className="mb-8">
+            <Breadcrumbs
+              crumbs={[
+                { name: "Головна", path: "/" },
+                { name: "Послуги", path: "/poslugy" },
+                { name: service.shortTitle, path },
+              ]}
+            />
+          </div>
           <div className="grid gap-12 md:grid-cols-12 md:items-end">
             <div className="md:col-span-7">
               <div className="mb-6 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-muted-foreground">
@@ -58,6 +80,9 @@ export function ServicePage({ service }: { service: ServiceConfig }) {
 
       {/* ASSORTMENT (optional) */}
       {service.assortment && <AssortmentSection assortment={service.assortment} />}
+
+      {/* SEO COPY (rendered once the copywriter fills `seoText`) */}
+      {service.seoText && <SeoTextSection seoText={service.seoText} />}
 
       {/* FAQ */}
       <FaqSection items={service.faq} />
@@ -160,6 +185,40 @@ function AssortmentSection({ assortment }: { assortment: NonNullable<ServiceConf
   );
 }
 
+/**
+ * FAQ accordion.
+ *
+ * Every answer is always rendered and collapsed with CSS (a 0fr→1fr grid row),
+ * never unmounted. The previous `{isOpen && <p>…}` meant server-rendered HTML
+ * contained exactly one of the five answers per page — roughly 40 answers
+ * across the site existed only inside the router's serialised loader payload,
+ * which search engines and AI crawlers do not treat as page content.
+ *
+ * Google explicitly supports content collapsed behind an accordion, both for
+ * indexing and for FAQPage structured data, so the interaction is unchanged.
+ */
+/**
+ * Long-form service copy. The audit's central content finding is that service
+ * pages carry no SEO text; this is the slot it goes into, so delivering copy
+ * becomes a data change in `services-data.ts` rather than a code change.
+ */
+function SeoTextSection({ seoText }: { seoText: NonNullable<ServiceConfig["seoText"]> }) {
+  return (
+    <section className="border-t hairline">
+      <div className="mx-auto max-w-7xl px-6 py-24 lg:px-12">
+        <div className="grid gap-12 md:grid-cols-12">
+          <h2 className="md:col-span-4 font-display text-4xl md:text-5xl leading-tight">{seoText.title}</h2>
+          <div className="md:col-span-8 space-y-5 text-[15px] leading-relaxed text-muted-foreground">
+            {seoText.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function FaqSection({ items }: { items: { q: string; a: string }[] }) {
   const [open, setOpen] = useState<number | null>(0);
   return (
@@ -172,11 +231,25 @@ function FaqSection({ items }: { items: { q: string; a: string }[] }) {
               const isOpen = open === i;
               return (
                 <li key={i}>
-                  <button onClick={() => setOpen(isOpen ? null : i)} className="flex w-full items-center justify-between gap-6 py-5 text-left">
+                  <button
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${i}`}
+                    className="flex w-full items-center justify-between gap-6 py-5 text-left"
+                  >
                     <span className="text-[15px] md:text-base">{it.q}</span>
                     <span className="text-primary">{isOpen ? <Minus size={18} /> : <Plus size={18} />}</span>
                   </button>
-                  {isOpen && <p className="pb-6 pr-10 text-sm text-muted-foreground max-w-3xl">{it.a}</p>}
+                  <div
+                    id={`faq-answer-${i}`}
+                    className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                      isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="pb-6 pr-10 text-sm text-muted-foreground max-w-3xl">{it.a}</p>
+                    </div>
+                  </div>
                 </li>
               );
             })}
