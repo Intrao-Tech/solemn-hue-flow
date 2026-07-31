@@ -19,6 +19,47 @@ async function getServerEntry(): Promise<ServerEntry> {
   return serverEntryPromise;
 }
 
+/**
+ * Collapses every URL variant onto one canonical form with a permanent redirect,
+ * before the request reaches the router.
+ *
+ * Measured on production before this existed:
+ *   - `/POSLUGY` answered 200 — the same page served on two URLs, which splits
+ *     ranking signals between them.
+ *   - `/poslugy/` answered 307 (temporary), which passes no link equity.
+ *   - `www.` answered 302 (temporary) from an edge rule.
+ *
+ * Paths containing a dot are left alone: hashed build assets are case-sensitive
+ * (`/assets/hero-angel-CkDMYMUx.webp`), so lowercasing them would 404 the site.
+ * That exemption also covers /robots.txt, /sitemap.xml and /llms.txt, which are
+ * already canonical.
+ */
+function canonicalRedirect(request: Request): Response | undefined {
+  // Only safe methods: rewriting a POST would drop its body (a 301 makes the
+  // browser re-issue the request as GET), breaking /api/contact.
+  if (request.method !== "GET" && request.method !== "HEAD") return undefined;
+
+  const url = new URL(request.url);
+  const original = url.toString();
+
+  if (url.hostname.startsWith("www.")) {
+    url.hostname = url.hostname.slice(4);
+  }
+
+  const path = url.pathname;
+  const isBuildAssetOrFile = path.startsWith("/_") || path.includes(".");
+  if (!isBuildAssetOrFile) {
+    if (path.length > 1) {
+      url.pathname = path.replace(/\/+$/, "") || "/";
+    }
+    if (/[A-Z]/.test(url.pathname)) {
+      url.pathname = url.pathname.toLowerCase();
+    }
+  }
+
+  return url.toString() === original ? undefined : Response.redirect(url.toString(), 301);
+}
+
 function brandedErrorResponse(): Response {
   return new Response(renderErrorPage(), {
     status: 500,
@@ -72,6 +113,10 @@ export default {
     // Cloudflare secrets live on `env`; stash them so server routes (e.g. the
     // contact form relay) can read them outside the fetch signature.
     rememberEnv(env);
+
+    const redirect = canonicalRedirect(request);
+    if (redirect) return redirect;
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

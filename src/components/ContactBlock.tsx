@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { ALL_SERVICES_LINKS } from "@/lib/services-data";
-import mourner from "@/assets/mourner.jpg";
+import mourner from "@/assets/mourner.webp";
 
 const FIELD_CLASS =
   "w-full rounded-sm border hairline bg-background/40 px-6 py-4 text-sm text-foreground placeholder:text-muted-foreground/80 backdrop-blur-sm transition focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";

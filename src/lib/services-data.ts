@@ -1,9 +1,9 @@
-import cemetery from "@/assets/cemetery.jpg";
-import candle from "@/assets/candle.jpg";
-import lilies from "@/assets/lilies.jpg";
-import wreath from "@/assets/wreath.jpg";
-import monument from "@/assets/monument.jpg";
-import mourner from "@/assets/mourner.jpg";
+import cemetery from "@/assets/cemetery.webp";
+import candle from "@/assets/candle.webp";
+import lilies from "@/assets/lilies.webp";
+import wreath from "@/assets/wreath.webp";
+import monument from "@/assets/monument.webp";
+import mourner from "@/assets/mourner.webp";
 
 export type IncludeCard = { title: string; bullets: string[]; cta?: string };
 export type AssortmentItem = { title: string; subtitle: string; img: string };
@@ -13,9 +13,20 @@ export type ServiceConfig = {
   slug: string;
   shortTitle: string;
   title: string;
+  /** `<title>`: main key in the first words, a commercial modifier, brand suffix. */
+  metaTitle: string;
+  /** `<meta name="description">`: hand-written per service. Replaces the old
+   *  `intro.slice(0, 160)`, which cut mid-word and carried no commercial intent. */
+  metaDescription: string;
   intro: string;
   heroImage: string;
   ctaLabel?: string;
+  /**
+   * Long-form SEO copy, rendered between the assortment and the FAQ when set.
+   * Left unset on every service until the copywriter delivers text written
+   * against the semantic core — the slot exists so that drop-in needs no code.
+   */
+  seoText?: { title: string; paragraphs: string[] };
   steps: string[];
   includes: {
     title: string;
@@ -33,6 +44,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "orhanizatsiya-pohoronu",
     shortTitle: "Організація похорон під ключ",
     title: "Організація похорон під ключ",
+    metaTitle: "Організація похорон у Києві під ключ — ціна | Ритуал 24",
+    metaDescription:
+      "Організація похорону під ключ у Києві: документи, труна, транспорт, місце на кладовищі та церемонія. Безкоштовний виїзд агента за 30 хвилин, цілодобово.",
     intro:
       "Повністю беремо організацію на себе — й робите тільки одне рішення, а далі поряд агент. Знаємо що казати, кого зустрічати, які документи де подати. Один дзвінок — і далі супроводжуємо родину від першого до останнього часу.",
     heroImage: monument,
@@ -100,6 +114,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "dohlyad",
     shortTitle: "Догляд та прибирання могил",
     title: "Догляд та прибирання могил",
+    metaTitle: "Догляд за могилами у Києві — прибирання, ціна | Ритуал 24",
+    metaDescription:
+      "Догляд та прибирання могил на кладовищах Києва й області: прибирання, миття пам'ятника, фарбування огорожі, квіти. Фотозвіт «до/після», разово чи постійно.",
     intro:
       "Не маєте можливості доглядати могилу рідної людини самостійно? Ми приїдемо, упорядкуємо й надішлемо фотозвіт. Працюємо разом з усіма цвинтарями Києва й області — разово або на постійній основі.",
     heroImage: cemetery,
@@ -144,6 +161,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "morh",
     shortTitle: "Послуги моргу",
     title: "Послуги моргу",
+    metaTitle: "Послуги моргу в Києві — зберігання, підготовка | Ритуал 24",
+    metaDescription:
+      "Послуги моргу в Києві: зберігання до 14 діб, санітарна й косметична підготовка, бальзамування, зала прощання, документи на видачу. Цілодобово, без затримок.",
     intro:
       "Беремо на себе все, що пов'язано зі зберіганням і підготовкою тіла до прощання, з гідним рівнем і повагою до традиції. Працюємо разом з провідними моргами Києва й області — без додаткових затримок із часом видачі та повної звітності за всі етапи.",
     heroImage: lilies,
@@ -193,6 +213,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "kremaciya",
     shortTitle: "Кремація під ключ",
     title: "Кремація під ключ",
+    metaTitle: "Кремація у Києві під ключ — ціна, документи | Ритуал 24",
+    metaDescription:
+      "Кремація в Києві під ключ: оформлення документів, прощання, крематорій, урна з прахом. Допомога з похованням урни чи колумбарієм. Цілодобово, виїзд агента.",
     intro:
       "Організовуємо кремацію повним циклом — від оформлення документів до передачі урни в крематорій, супроводжуємо родину на кожному кроці й беремо всі організаційні питання на себе.",
     heroImage: candle,
@@ -249,6 +272,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "kremaciya-tvaryn",
     shortTitle: "Кремація тварин",
     title: "Кремація тварин",
+    metaTitle: "Кремація тварин у Києві — індивідуальна, ціна | Ритуал 24",
+    metaDescription:
+      "Кремація тварин у Києві та області: індивідуальна або загальна. Забираємо з дому чи ветклініки, повертаємо прах в урні. Бережно, з повагою, цілодобово.",
     intro:
       "Так, ця розмова буває важка, але понад усе ми тут і бережно, з повагою турбуємось про вашого улюбленця — індивідуально або разом, без зайвих процедур, у крематорії з відповідними сертифікатами.",
     heroImage: candle,
@@ -296,6 +322,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "vantazh-200",
     shortTitle: "Ритуальний транспорт · Вантаж 200",
     title: "Ритуальний транспорт · Вантаж 200",
+    metaTitle: "Ритуальний транспорт Київ — вантаж 200, катафалк | Ритуал 24",
+    metaDescription:
+      "Перевезення померлих по Києву, Україні та за кордон — транспорт «вантаж 200» і катафалк. Оформлюємо документи й дозволи, подача в будь-який час, цілодобово.",
     intro:
       "Виконуємо перевезення померлих по Києву, Україні та за кордон — спеціалізованим транспортом «вантаж 200». Оформлюємо документи й перевезення в будь-який день за відповідними сертифікатами.",
     heroImage: mourner,
@@ -344,6 +373,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "repatriaciya",
     shortTitle: "Репатріація тіл в Україну",
     title: "Репатріація тіл в Україну",
+    metaTitle: "Репатріація тіла в Україну — ціна, терміни | Ритуал 24",
+    metaDescription:
+      "Репатріація тіл в Україну з будь-якої країни: документи, консульство, цинковий контейнер, митниця, авіаперевезення, зустріч. Термін 5–10 днів, цілодобово.",
     intro:
       "Швидка репатріація тіл в Україну з будь-якої країни світу — від дзвінка до передачі родині. Беремо на себе всі документи, цинковий контейнер, митницю, авіа- чи автоперевезення й зустріч. Працюємо цілодобово, координуємо з посольствами та іноземними моргами.",
     heroImage: cemetery,
@@ -430,6 +462,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "khresty-vinky",
     shortTitle: "Хрести, вінки, квіти, лампади",
     title: "Хрести, вінки, квіти, лампади",
+    metaTitle: "Вінки, хрести та квіти на похорон Київ — ціна | Ритуал 24",
+    metaDescription:
+      "Траурні вінки, хрести, квіти, лампади та свічки в Києві. Стрічки з написом, підбір під церемонію, доставка по Києву й області в день замовлення.",
     intro:
       "Усе для скорботного прощання та обряду пам'яті — хрести, вінки, траурні квіти, ритуальні свічки й лампади. Підбираємо, оформлюємо й доставляємо до церемонії або на адресу.",
     heroImage: wreath,
@@ -480,6 +515,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "truny",
     shortTitle: "Труни та саркофаги",
     title: "Труни та саркофаги",
+    metaTitle: "Труни та саркофаги у Києві — купити, ціна | Ритуал 24",
+    metaDescription:
+      "Труни та саркофаги в Києві: класичні, преміум, дерево й ручне оздоблення. Допоможемо обрати за бюджетом, привеземо до прощання. Доставка по Києву й області.",
     intro:
       "Допомагаємо обрати труну або саркофаг, доступний по типу й бюджету. Виготовлення модулей у форматі шкіри, тканин — з провідними майстерями. Привеземо до прощання й підготуємо до церемонії.",
     heroImage: lilies,
@@ -528,6 +566,9 @@ export const SERVICES: ServiceConfig[] = [
     slug: "fotoportret",
     shortTitle: "Фотопортрет на могилу",
     title: "Фотопортрет на могилу",
+    metaTitle: "Фотопортрет на пам'ятник — кераміка, ціна | Ритуал 24",
+    metaDescription:
+      "Фотопортрет на пам'ятник у Києві: кераміка, металокераміка, фотоскло. Реставруємо старе фото, узгоджуємо ескіз, виготовляємо та встановлюємо на пам'ятник.",
     intro:
       "Фотопортрет створюємо за обряд рідних. Виготовляємо довговічний фотопортрет на пам'ятник — за потреби відреставруємо й допоможемо з вибором матеріалу — кераміка, металокераміка або фотоскло.",
     heroImage: monument,

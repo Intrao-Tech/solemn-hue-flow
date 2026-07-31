@@ -2,22 +2,43 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ContactBlock } from "@/components/ContactBlock";
-import heroAngel from "@/assets/hero-angel.jpg";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { JsonLd } from "@/components/JsonLd";
+import { canonicalHead } from "@/lib/site";
+import { aboutPageSchema, breadcrumbSchema } from "@/lib/structured-data";
+import heroAngel from "@/assets/hero-angel.webp";
+
+const TITLE = "Про нас — ритуальна служба у Києві | Ритуал 24 Берківці";
+const DESCRIPTION =
+  "Десять років поряд із родинами у найважчий час: понад 2000 родин, 28 кладовищ Києва, повний цикл ритуальних послуг і виїзд агента за 30 хвилин. Цілодобово.";
 
 export const Route = createFileRoute("/pro-nas")({
-  head: () => ({
-    meta: [
-      { title: "Про нас — Ритуал 24 Берківці" },
-      { name: "description", content: "Десять років поряд із родинами у найважчий час. Понад 2000 родин, повний цикл ритуальних послуг." },
-      { property: "og:title", content: "Про нас — Ритуал 24 Берківці" },
-    ],
-  }),
+  head: () => {
+    const canonical = canonicalHead("/pro-nas");
+    return {
+      links: canonical.links,
+      meta: [
+        { title: TITLE },
+        { name: "description", content: DESCRIPTION },
+        { property: "og:title", content: TITLE },
+        { property: "og:description", content: DESCRIPTION },
+        ...canonical.meta,
+      ],
+    };
+  },
   component: ProNas,
 });
 
 function ProNas() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <JsonLd data={aboutPageSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Головна", path: "/" },
+          { name: "Про нас", path: "/pro-nas" },
+        ])}
+      />
       <SiteHeader />
       <section className="relative isolate overflow-hidden grain">
         <div className="absolute inset-0 -z-10">
@@ -25,7 +46,13 @@ function ProNas() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
         </div>
         <div className="mx-auto max-w-7xl px-6 py-32 lg:px-12 reveal">
-          <div className="text-xs uppercase tracking-[0.4em] text-primary">— Про нас</div>
+          <Breadcrumbs
+            crumbs={[
+              { name: "Головна", path: "/" },
+              { name: "Про нас", path: "/pro-nas" },
+            ]}
+          />
+          <div className="mt-6 text-xs uppercase tracking-[0.4em] text-primary">— Про нас</div>
           <h1 className="mt-6 font-display text-5xl md:text-7xl leading-[1.05] max-w-4xl">
             Десять років поряд із <em className="text-primary not-italic">тими</em>, кому найважче
           </h1>
