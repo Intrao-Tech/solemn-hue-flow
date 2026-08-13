@@ -10,7 +10,7 @@
  */
 
 import { SERVICES } from "./services-data";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
+import { CONTACTS, SITE_DESCRIPTION, SITE_NAME, SITE_URL, absoluteUrl } from "./site";
 
 /** Every indexable URL on the site, in crawl-priority order. */
 export function siteUrls(): { path: string; changefreq: string; priority: string }[] {
@@ -86,7 +86,7 @@ export function llmsTxt(): string {
 > ${SITE_DESCRIPTION}
 
 Похоронна служба у Києві, вул. Стеценка, 18 (Берківецьке кладовище). Приймаємо
-дзвінки цілодобово, без вихідних: +38 (044) 209 11 75, +38 (067) 272 33 77.
+дзвінки цілодобово, без вихідних: ${CONTACTS.phoneDisplay}.
 Виїзд агента безкоштовний, у межах Києва — протягом 30 хвилин.
 
 ## Послуги

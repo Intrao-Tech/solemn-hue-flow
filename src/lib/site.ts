@@ -24,8 +24,12 @@ export const SITE_LANG = "uk";
 export const SITE_LOCALE = "uk_UA";
 
 export const CONTACTS = {
-  phonePrimary: "+380442091175",
-  phoneSecondary: "+380672723377",
+  // The 044 landline was retired sitewide in "Added secrets, cleaned tel".
+  // Only this number may be published: the structured data below is what Google
+  // reads as the business phone, so a stale number here breaks NAP consistency
+  // against the Google Business Profile and sends callers nowhere.
+  phone: "+380672723377",
+  phoneDisplay: "+38 (067) 272 33 77",
   email: "ritualberkovtsy@gmail.com",
   streetAddress: "вул. Стеценка, 18",
   addressLocality: "Київ",

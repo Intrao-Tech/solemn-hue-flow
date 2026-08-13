@@ -12,7 +12,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Toaster } from "@/components/ui/sonner";
 import { ALL_SERVICES_LINKS } from "@/lib/services-data";
-import { SITE_DESCRIPTION, SITE_LANG, SITE_LOCALE, SITE_NAME, SITE_TAGLINE, absoluteUrl } from "@/lib/site";
+import { CONTACTS, SITE_DESCRIPTION, SITE_LANG, SITE_LOCALE, SITE_NAME, SITE_TAGLINE, absoluteUrl } from "@/lib/site";
 
 import appCss from "../styles.css?url";
 
@@ -50,10 +50,10 @@ function NotFoundComponent() {
           На головну
         </Link>
         <a
-          href="tel:+380442091175"
+          href={`tel:${CONTACTS.phone}`}
           className="inline-flex items-center justify-center rounded-sm border hairline px-8 py-4 text-xs uppercase tracking-[0.22em] transition hover:border-primary hover:text-primary"
         >
-          +38 (044) 209 11 75
+          {CONTACTS.phoneDisplay}
         </a>
       </div>
 
@@ -97,10 +97,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           Спробувати ще раз
         </button>
         <a
-          href="tel:+380442091175"
+          href={`tel:${CONTACTS.phone}`}
           className="inline-flex items-center justify-center rounded-sm border hairline px-8 py-4 text-xs uppercase tracking-[0.22em] transition hover:border-primary hover:text-primary"
         >
-          +38 (044) 209 11 75
+          {CONTACTS.phoneDisplay}
         </a>
       </div>
     </ErrorShell>
