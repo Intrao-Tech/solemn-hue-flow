@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Phone, Send, Instagram } from "lucide-react";
+import { Phone } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -25,10 +25,11 @@ export function SiteFooter() {
           <a href="tel:+380672723377" className="block hover:text-primary">+38 (067) 272 33 77</a>
           <div>E-MAIL: ritualberkovtsy@gmail.com</div>
           <div className="uppercase tracking-[0.2em] text-xs mt-3">Працюємо цілодобово</div>
+          {/* Telegram and Instagram icons removed: both pointed at href="#" —
+              there are no accounts behind them. Re-add only with real URLs, and
+              list them in `sameAs` on the organisation schema at the same time. */}
           <div className="mt-3 flex gap-2">
-            <a href="#" aria-label="Telegram" className="rounded-full border hairline p-2 hover:border-primary hover:text-primary transition"><Send size={14} /></a>
-            <a href="#" aria-label="Instagram" className="rounded-full border hairline p-2 hover:border-primary hover:text-primary transition"><Instagram size={14} /></a>
-            <a href="tel:+380672723377" aria-label="Phone" className="rounded-full border hairline p-2 hover:border-primary hover:text-primary transition"><Phone size={14} /></a>
+            <a href="tel:+380672723377" aria-label="Зателефонувати" className="rounded-full border hairline p-2 hover:border-primary hover:text-primary transition"><Phone size={14} /></a>
           </div>
         </div>
         <div className="md:col-span-2 flex md:justify-end items-start">
