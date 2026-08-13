@@ -41,7 +41,7 @@ export function organizationSchema() {
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     image: absoluteUrl("/og-image.jpg"),
-    telephone: [CONTACTS.phonePrimary, CONTACTS.phoneSecondary],
+    telephone: CONTACTS.phone,
     email: CONTACTS.email,
     address: {
       "@type": "PostalAddress",
