@@ -24,7 +24,7 @@ const NAV = [
 export function TopBanner() {
   return (
     <div className="border-b hairline bg-background/60 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 text-xs uppercase tracking-[0.2em] text-foreground/75 lg:px-12">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 text-xs uppercase tracking-[0.2em] text-foreground/90 lg:px-12">
         <div>м. Київ, вул. Стеценка, 18</div>
         <div className="hidden md:block">
           <span className="h-1.5 w-1.5 mr-2 inline-block rounded-full bg-primary animate-pulse" />
@@ -51,7 +51,7 @@ export function SiteHeader({ floating = false }: { floating?: boolean }) {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-6 py-5 lg:px-12">
         <Link to="/" className="flex items-baseline gap-2 font-display text-2xl leading-none shrink-0">
           <span>Ритуал<span className="text-primary">24</span></span>
-          <span className="text-[10px] uppercase tracking-[0.25em] text-foreground/70">Берківці</span>
+          <span className="text-[10px] uppercase tracking-[0.25em] text-foreground/85">Берківці</span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-8 text-xs uppercase tracking-[0.18em]">
@@ -60,7 +60,7 @@ export function SiteHeader({ floating = false }: { floating?: boolean }) {
               key={i}
               to={n.to}
               hash={n.hash?.slice(1)}
-              className="text-foreground/80 hover:text-primary transition"
+              className="text-foreground hover:text-primary transition"
             >
               {n.label}
             </Link>
@@ -80,7 +80,7 @@ export function SiteHeader({ floating = false }: { floating?: boolean }) {
         <div className="lg:hidden border-t hairline bg-background/95 backdrop-blur">
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4 text-sm uppercase tracking-[0.22em]">
             {NAV.map((n, i) => (
-              <Link key={i} to={n.to} hash={n.hash?.slice(1)} onClick={() => setOpen(false)} className="py-2 text-foreground/80 hover:text-primary">
+              <Link key={i} to={n.to} hash={n.hash?.slice(1)} onClick={() => setOpen(false)} className="py-2 text-foreground hover:text-primary">
                 {n.label}
               </Link>
             ))}

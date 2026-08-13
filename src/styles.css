@@ -77,7 +77,11 @@
   --secondary: oklch(0.24 0.006 60);
   --secondary-foreground: oklch(0.92 0.01 80);
   --muted: oklch(0.22 0.005 60);
-  --muted-foreground: oklch(0.62 0.012 70);
+  /* Secondary body copy. Was L=0.62 (5.3:1 on --background) — passed AA on
+     paper but read as washed out at the sizes it is used at. L=0.78 gives
+     9.7:1, still clearly a step below --foreground (15.3:1) so the hierarchy
+     between primary and secondary text survives. */
+  --muted-foreground: oklch(0.78 0.012 70);
   --accent: oklch(0.72 0.08 70);
   --accent-foreground: oklch(0.15 0.005 60);
   --destructive: oklch(0.55 0.20 25);
@@ -107,7 +111,10 @@
   /* Light "paper" section used between dark blocks */
   --paper: oklch(0.94 0.012 80);
   --paper-foreground: oklch(0.22 0.008 60);
-  --paper-muted: oklch(0.50 0.012 70);
+  /* Same fix mirrored for the light sections: was L=0.50 (5.0:1 on --paper),
+     now 7.7:1. Left alone it would be the one place on the site where the
+     secondary text is still hard to read. */
+  --paper-muted: oklch(0.40 0.012 70);
   --paper-border: oklch(0.22 0.008 60 / 0.12);
 }
 
